@@ -25,16 +25,20 @@ class DigitalClock(tk.Frame):
                   This will place DigitalClock in a window.
         """
 
+        # Initialize object
         tk.Frame.__init__(self, root)
         self.root = root
         self.time = ""
+        self.date = ""
 
-        # Create the time label
-        self.label = tk.Label(root, text = self.time, font = ("arial", 
+        # Create the time, date, and dropdown box label
+        self.time_label = tk.Label(root, text = self.time, font = ("arial", 
                 32, "bold"), background = "navy", foreground = "white")
-        # Create the dropdown box label
+        self.date_label = tk.Label(root, text = self.date, font = ("arial", 
+                20, "bold"), background = "navy", foreground = "white")
         self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
                 font = ("arial", 12))
+        
         # Create the timezone dropdown box
         timezone_list = list(get_zonefile_instance().zones)
         timezone_list.sort()
@@ -49,7 +53,8 @@ class DigitalClock(tk.Frame):
             self.timezone_dropdown.set("EST")
         
         # Place widgets into frame
-        self.label.pack(anchor = "center", expand = True, fill ="both")
+        self.time_label.pack(anchor = "center", expand = True, fill ="both")
+        self.date_label.pack(anchor = "center", expand = True, fill ="both")
         self.dropdown_label.pack()
         self.timezone_dropdown.pack()
 
@@ -67,11 +72,18 @@ class DigitalClock(tk.Frame):
             current_timezone: str = self.timezone_dropdown.get()
             timezone_object = gettz(current_timezone)
             datetime_object = datetime.now(tz = timezone_object)
-            time: str = datetime_object.strftime("%I:%M:%S %p %Z")
+            time: str = datetime_object.strftime("%I:%M:%S %p")
+            date: str = datetime_object.strftime("%A, %B %d, %Y")
         except:
-            time: str = strftime("%I:%M:%S %p %Z")
-
+            time: str = strftime("%I:%M:%S %p")
+            date: str = strftime("%A, %B %d, %Y")
+        
+        # Update time and/or date if necessary
         if self.time != time:
             self.time = time
-            self.label.config(text = self.time)
-        self.label.after(100, self.tick)
+            self.time_label.config(text = self.time)
+        if self.date != date:
+            self.date = date
+            self.date_label.config(text = self.date)
+        
+        self.after(100, self.tick)
