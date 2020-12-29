@@ -26,35 +26,35 @@ class MainApp(tk.Frame):
         self.root = root
 
         # Create the tabs that will hold each mode
-        tabs = ttk.Notebook(root)
+        self.tabs = ttk.Notebook(root)
 
         # Digital clock
-        tab_digital_clock = ttk.Frame(tabs)
-        tabs.add(tab_digital_clock, text ='Digital Clock')
+        tab_digital_clock = ttk.Frame(self.tabs)
+        self.tabs.add(tab_digital_clock, text ='Digital Clock')
         digital_clock = DigitalClock(tab_digital_clock)
         digital_clock.pack()
 
         # Analog clock?
-        tab_analog_clock = ttk.Frame(tabs)
-        tabs.add(tab_analog_clock, text ='Analog Clock')
+        tab_analog_clock = ttk.Frame(self.tabs)
+        self.tabs.add(tab_analog_clock, text ='Analog Clock')
         # TODO: Create an instance of AnalogClock, position it
 
         # Stopwatch
-        tab_stopwatch = ttk.Frame(tabs)
-        tabs.add(tab_stopwatch, text = 'Stopwatch')
+        tab_stopwatch = ttk.Frame(self.tabs)
+        self.tabs.add(tab_stopwatch, text = 'Stopwatch')
         # TODO: Create an instance of Stopwatch, position it
 
         # Timer
-        tab_timer = ttk.Frame(tabs)
-        tabs.add(tab_timer, text = "Timer")
+        tab_timer = ttk.Frame(self.tabs)
+        self.tabs.add(tab_timer, text = "Timer")
         # TODO: Create an instance of Timer, position it
 
         # Pomodoro timer?
-        tab_pomodoro_timer = ttk.Frame(tabs)
-        tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
+        tab_pomodoro_timer = ttk.Frame(self.tabs)
+        self.tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
         # TODO: Create an instance of PomodoroTimer, position it
         
-        tabs.pack(expand = 1, fill ="both")
+        self.tabs.pack(expand = 1, fill ="both")
 
 
 root = tk.Tk()
