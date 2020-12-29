@@ -37,24 +37,24 @@ class MainApp(tk.Frame):
         # Analog clock?
         tab_analog_clock = ttk.Frame(self.tabs)
         self.tabs.add(tab_analog_clock, text ='Analog Clock')
-        # TODO: Create an instance of AnalogClock, position it
+        # TODO: Create an instance of AnalogClock
 
         # Stopwatch
         tab_stopwatch = ttk.Frame(self.tabs)
         self.tabs.add(tab_stopwatch, text = 'Stopwatch')
-        # TODO: Create an instance of Stopwatch, position it
+        # TODO: Create an instance of Stopwatch
 
         # Timer
         tab_timer = ttk.Frame(self.tabs)
         self.tabs.add(tab_timer, text = "Timer")
-        # TODO: Create an instance of Timer, position it
+        # TODO: Create an instance of Timer
 
         # Pomodoro timer?
         tab_pomodoro_timer = ttk.Frame(self.tabs)
         self.tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
-        # TODO: Create an instance of PomodoroTimer, position it
+        # TODO: Create an instance of PomodoroTimer
         
-        self.tabs.pack(expand = 1, fill ="both")
+        self.tabs.pack(expand = True, fill = "both")
 
 
 root = tk.Tk()
