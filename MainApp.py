@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 
+from DigitalClock import DigitalClock
+
 class MainApp(tk.Frame): 
     """
     This class is the main clock and timer application that will be run.
@@ -13,7 +15,7 @@ class MainApp(tk.Frame):
 
     def __init__(self, root): 
         """
-        This creates an instance of the main application.
+        This function creates an instance of MainApp.
 
         Args:
             root: An instance of Tk will be placed here.  
@@ -27,9 +29,10 @@ class MainApp(tk.Frame):
         tabs = ttk.Notebook(root)
 
         # Digital clock
-        tab_digital_clock = ttk.Frame(tabs) 
-        tabs.add(tab_digital_clock, text ='Digital Clock') 
-        # TODO: Create an instance of DigitalClock, position it
+        tab_digital_clock = ttk.Frame(tabs)
+        tabs.add(tab_digital_clock, text ='Digital Clock')
+        digital_clock = DigitalClock(tab_digital_clock)
+        digital_clock.pack()
 
         # Analog clock?
         tab_analog_clock = ttk.Frame(tabs)
@@ -56,4 +59,5 @@ class MainApp(tk.Frame):
 
 root = tk.Tk()
 MainApp(root).pack(side = "top", fill = "both", expand = True)
+root.resizable(width = False, height = False)
 root.mainloop()
