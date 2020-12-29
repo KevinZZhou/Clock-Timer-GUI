@@ -58,6 +58,7 @@ class MainApp(tk.Frame):
 
 
 root = tk.Tk()
-MainApp(root).pack(side = "top", fill = "both", expand = True)
+root.title("Python Clock and Timer")
 root.resizable(width = False, height = False)
+MainApp(root).pack(side = "top", expand = True, fill = "both")
 root.mainloop()

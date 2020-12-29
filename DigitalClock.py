@@ -26,7 +26,7 @@ class DigitalClock(tk.Frame):
         self.time = ""
         self.label = tk.Label(root, text = self.time, font = ("arial", 
                 32, "bold"), background = "navy", foreground = "white")
-        self.label.pack(anchor = "center", fill ="both")
+        self.label.pack(anchor = "center", expand = True, fill ="both")
         self.tick()
 
     def tick(self):
