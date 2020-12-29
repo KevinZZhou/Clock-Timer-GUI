@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 
 class MainApp(tk.Frame): 
     """
@@ -21,6 +22,37 @@ class MainApp(tk.Frame):
 
         tk.Frame.__init__(self, root)
         self.root = root
+
+        # Create the tabs that will hold each mode
+        tabs = ttk.Notebook(root)
+
+        # Digital clock
+        tab_digital_clock = ttk.Frame(tabs) 
+        tabs.add(tab_digital_clock, text ='Digital Clock') 
+        # TODO: Create an instance of DigitalClock, position it
+
+        # Analog clock?
+        tab_analog_clock = ttk.Frame(tabs)
+        tabs.add(tab_analog_clock, text ='Analog Clock')
+        # TODO: Create an instance of AnalogClock, position it
+
+        # Stopwatch
+        tab_stopwatch = ttk.Frame(tabs)
+        tabs.add(tab_stopwatch, text = 'Stopwatch')
+        # TODO: Create an instance of Stopwatch, position it
+
+        # Timer
+        tab_timer = ttk.Frame(tabs)
+        tabs.add(tab_timer, text = "Timer")
+        # TODO: Create an instance of Timer, position it
+
+        # Pomodoro timer?
+        tab_pomodoro_timer = ttk.Frame(tabs)
+        tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
+        # TODO: Create an instance of PomodoroTimer, position it
+        
+        tabs.pack(expand = 1, fill ="both")
+
 
 root = tk.Tk()
 MainApp(root).pack(side = "top", fill = "both", expand = True)
