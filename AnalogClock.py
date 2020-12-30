@@ -1,4 +1,5 @@
 import tkinter as tk
+from pathlib import Path
 
 class AnalogClock(tk.Frame):
     """
@@ -18,6 +19,21 @@ class AnalogClock(tk.Frame):
             root: An instance of Tk will be placed here.  
                   This will place AnalogClock in a window.
         """
+
+        # Initialize object
+        tk.Frame.__init__(self, root)
+        self.root = root
+        self.canvas = tk.Canvas(self.root, width = 600, height = 600, 
+                bg = "white")
+
+        # Place the analog clock image on the canvas
+        path = Path("files/images/")
+        analog_clock = path / "analog-clock.png"
+        self.image = tk.PhotoImage(file = analog_clock)
+        self.canvas.create_image(300, 300, image = self.image)
+
+        # Place widgets into frame
+        self.canvas.pack()
 
     def tick(self):
         """
