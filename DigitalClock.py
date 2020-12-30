@@ -1,10 +1,7 @@
 import tkinter as tk
-from datetime import datetime
-from tkinter import ttk
 from time import strftime
-from dateutil.zoneinfo import get_zonefile_instance
-from dateutil.tz import gettz
-from tzlocal import get_localzone
+
+from TimezoneDropdown import TimezoneDropdown
 
 class DigitalClock(tk.Frame):
     """
@@ -31,35 +28,20 @@ class DigitalClock(tk.Frame):
         self.time = ""
         self.date = ""
 
-        # Create the time, date, and dropdown box label
+        # Create the time and date label, and timezone dropdown box
         self.time_label = tk.Label(root, text = self.time, 
                 font = ("verdana", 32, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
         self.date_label = tk.Label(root, text = self.date, 
-                font = ("berdana", 20, "bold"), background = "white", 
+                font = ("verdana", 20, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
-        self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
-                font = ("verdana", 14))
-        
-        # Create the timezone dropdown box
-        timezone_list = list(get_zonefile_instance().zones)
-        timezone_list.sort()
-        self.timezone_dropdown = ttk.Combobox(root, state = "readonly", 
-                values = timezone_list, font = ("verdana", 14))
-        # Set the default value to be the local time zone of the device
-        # If something goes wrong (e.g. timezone isn't found), default to EST
-        try:
-            local_timezone = str(get_localzone())
-            self.timezone_dropdown.set(local_timezone)
-        except:
-            self.timezone_dropdown.set("EST")
-        
-        # Place widgets into frame
-        self.time_label.pack(anchor = "center", expand = True, fill ="both")
-        self.date_label.pack(anchor = "center", expand = True, fill ="both")
-        self.dropdown_label.pack()
-        self.timezone_dropdown.pack()
+        self.dropdown = TimezoneDropdown(root)
 
+        # Place widgets into frame
+        self.time_label.pack(expand = True, fill ="both")
+        self.date_label.pack(expand = True, fill ="both")
+        self.dropdown.pack()
+        
         # Start the clock
         self.tick()
 
@@ -71,9 +53,7 @@ class DigitalClock(tk.Frame):
         # Use the timezone dropdown box to adjust the displayed time
         # If something goes wrong, default to displaying local time
         try:
-            current_timezone: str = self.timezone_dropdown.get()
-            timezone_object = gettz(current_timezone)
-            datetime_object = datetime.now(tz = timezone_object)
+            datetime_object = self.dropdown.get_datetime()
             time: str = datetime_object.strftime("%I:%M:%S %p")
             date: str = datetime_object.strftime("%A, %B %d, %Y")
         except:
