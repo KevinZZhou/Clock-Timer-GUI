@@ -32,18 +32,18 @@ class DigitalClock(tk.Frame):
         self.date = ""
 
         # Create the time, date, and dropdown box label
-        self.time_label = tk.Label(root, text = self.time, font = ("arial", 
-                32, "bold"), background = "navy", foreground = "white")
-        self.date_label = tk.Label(root, text = self.date, font = ("arial", 
-                20, "bold"), background = "navy", foreground = "white")
+        self.time_label = tk.Label(root, text = self.time, font = ("verdana", 
+                32, "bold"), background = "white", foreground = "black", borderwidth = 1, relief = "solid")
+        self.date_label = tk.Label(root, text = self.date, font = ("berdana", 
+                20, "bold"), background = "white", foreground = "black", borderwidth = 1, relief = "solid")
         self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
-                font = ("arial", 12))
+                font = ("verdana", 14))
         
         # Create the timezone dropdown box
         timezone_list = list(get_zonefile_instance().zones)
         timezone_list.sort()
         self.timezone_dropdown = ttk.Combobox(root, state = "readonly", 
-                values = timezone_list)
+                values = timezone_list, font = ("verdana", 14))
         # Set the default value to be the local time zone of the device
         # If something goes wrong (e.g. timezone isn't found), default to EST
         try:
