@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from DigitalClock import DigitalClock
+from AnalogClock import AnalogClock
 
 class MainApp(tk.Frame): 
     """
@@ -26,7 +27,7 @@ class MainApp(tk.Frame):
         self.root = root
 
         # Create the tabs that will hold each mode
-        self.tabs = ttk.Notebook(root)
+        self.tabs = ttk.Notebook(self.root)
 
         # Digital clock
         tab_digital_clock = ttk.Frame(self.tabs)
@@ -37,7 +38,9 @@ class MainApp(tk.Frame):
         # Analog clock?
         tab_analog_clock = ttk.Frame(self.tabs)
         self.tabs.add(tab_analog_clock, text ='Analog Clock')
-        # TODO: Create an instance of AnalogClock
+        analog_clock = AnalogClock(tab_analog_clock)
+        analog_clock.pack()
+        
 
         # Stopwatch
         tab_stopwatch = ttk.Frame(self.tabs)
@@ -54,12 +57,12 @@ class MainApp(tk.Frame):
         self.tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
         # TODO: Create an instance of PomodoroTimer
         
-        self.tabs.pack(expand = True, fill = "both")
+        self.tabs.pack(expand = True, fill = "both", side = "top")
 
 
 root = tk.Tk()
-root.title("Python Clock and Timer")
-root.minsize(500, 500)
+root.title("Python Clock and Timer App")
+
 root.resizable(width = False, height = False)
 MainApp(root).pack(side = "top", expand = True, fill = "both")
 root.mainloop()
