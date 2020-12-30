@@ -32,10 +32,12 @@ class DigitalClock(tk.Frame):
         self.date = ""
 
         # Create the time, date, and dropdown box label
-        self.time_label = tk.Label(root, text = self.time, font = ("verdana", 
-                32, "bold"), background = "white", foreground = "black", borderwidth = 1, relief = "solid")
-        self.date_label = tk.Label(root, text = self.date, font = ("berdana", 
-                20, "bold"), background = "white", foreground = "black", borderwidth = 1, relief = "solid")
+        self.time_label = tk.Label(root, text = self.time, 
+                font = ("verdana", 32, "bold"), background = "white", 
+                foreground = "black", borderwidth = 1, relief = "solid")
+        self.date_label = tk.Label(root, text = self.date, 
+                font = ("berdana", 20, "bold"), background = "white", 
+                foreground = "black", borderwidth = 1, relief = "solid")
         self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
                 font = ("verdana", 14))
         
