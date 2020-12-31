@@ -1,5 +1,6 @@
 import tkinter as tk
 from pathlib import Path
+from PIL import Image
 from time import strftime
 
 from TimezoneDropdown import TimezoneDropdown
@@ -26,16 +27,19 @@ class AnalogClock(tk.Frame):
         # Initialize object
         tk.Frame.__init__(self, root)
         self.root = root
-        self.canvas = tk.Canvas(self.root, width = 600, height = 600, 
-                bg = "white")
         self.time = ""
         self.date = ""
+        self.canvas = tk.Canvas(self.root, width = 600, height = 600, 
+                bg = "white")
+        
+        # Get clock image that will be placed on the canvas
+        self.image_path = Path("files/images/") / "analog-clock.png"
+        self.image = tk.PhotoImage(file = self.image_path)
 
-        # Place the analog clock image on the canvas
-        path = Path("files/images/")
-        analog_clock = path / "analog-clock.png"
-        self.image = tk.PhotoImage(file = analog_clock)
-        self.canvas.create_image(300, 300, image = self.image)
+        # Get image dimensions
+        img = Image.open(self.image_path)
+        self.width, self.height = img.size
+        self.center_X, self.center_Y = self.width // 2, self.height //2
 
         # Create the date label and timezone dropdown box
         self.date_label = tk.Label(root, text = self.date, 
@@ -44,6 +48,8 @@ class AnalogClock(tk.Frame):
         self.dropdown = TimezoneDropdown(root)
 
         # Place widgets into frame
+        self.canvas.create_image(self.center_X, self.center_Y, 
+                image = self.image)
         self.canvas.pack()
         self.date_label.pack(expand = True, fill ="both")
         self.dropdown.pack()
