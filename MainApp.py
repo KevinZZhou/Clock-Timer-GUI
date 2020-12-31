@@ -3,6 +3,7 @@ from tkinter import ttk
 
 from DigitalClock import DigitalClock
 from AnalogClock import AnalogClock
+from Stopwatch import Stopwatch
 
 class MainApp(tk.Frame): 
     """
@@ -37,17 +38,17 @@ class MainApp(tk.Frame):
         digital_clock = DigitalClock(tab_digital_clock)
         digital_clock.pack()
 
-        # Analog clock?
+        # Analog clock
         tab_analog_clock = ttk.Frame(self.tabs)
         self.tabs.add(tab_analog_clock, text ='Analog Clock')
         analog_clock = AnalogClock(tab_analog_clock)
         analog_clock.pack()
-        
 
         # Stopwatch
         tab_stopwatch = ttk.Frame(self.tabs)
         self.tabs.add(tab_stopwatch, text = 'Stopwatch')
-        # TODO: Create an instance of Stopwatch
+        stopwatch = Stopwatch(tab_stopwatch)
+        stopwatch.pack()
 
         # Timer
         tab_timer = ttk.Frame(self.tabs)
@@ -64,7 +65,6 @@ class MainApp(tk.Frame):
 
 root = tk.Tk()
 root.title("Python Clock and Timer App")
-
 root.resizable(width = False, height = False)
-MainApp(root).pack(side = "top", expand = True, fill = "both")
+MainApp(root)
 root.mainloop()
