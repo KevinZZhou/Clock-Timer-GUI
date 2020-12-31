@@ -2,6 +2,7 @@ import tkinter as tk
 from pathlib import Path
 from PIL import Image
 from time import strftime
+import math
 
 from TimezoneDropdown import TimezoneDropdown
 
@@ -31,6 +32,11 @@ class AnalogClock(tk.Frame):
         self.date = ""
         self.canvas = tk.Canvas(self.root, width = 600, height = 600, 
                 bg = "white")
+        
+        # Initialize clock hands
+        self.hand_hours = self.canvas.create_line(0, 0, 0, 0)
+        self.hand_minutes = self.canvas.create_line(0, 0, 0, 0)
+        self.hand_seconds = self.canvas.create_line(0, 0, 0, 0)
         
         # Get clock image that will be placed on the canvas
         self.image_path = Path("files/images/") / "analog-clock.png"
@@ -74,4 +80,24 @@ class AnalogClock(tk.Frame):
             self.date = date
             self.date_label.config(text = self.date)
         
+        self.update_hands()
         self.after(100, self.tick)
+    
+    def update_hands(self):
+        datetime_object = self.dropdown.get_datetime()
+        
+        self.update_seconds(datetime_object)
+
+    def update_seconds(self, datetime_object):
+        seconds: int = datetime_object.second
+        seconds_length: int = self.center_X
+        
+        angle_seconds_deg = ((seconds * 6) + 90) % 360
+        angle_seconds_rad = angle_seconds_deg * math.pi / 180
+
+        self.canvas.delete(self.hand_seconds)
+        self.hand_seconds = self.canvas.create_line(
+                self.center_X, self.center_Y, 
+                self.center_X + seconds_length * math.cos(angle_seconds_rad), 
+                self.center_X + seconds_length * math.sin(angle_seconds_rad), 
+                width = 2)
