@@ -60,7 +60,7 @@ class TimezoneDropdown(tk.Frame):
                       info about the current time in the selected timezone.
         """
 
-        current_timezone: str = self.timezone_dropdown.get()
+        current_timezone = self.timezone_dropdown.get()
         timezone_object = gettz(current_timezone)
         datetime_object = datetime.now(tz = timezone_object)
         return datetime_object
