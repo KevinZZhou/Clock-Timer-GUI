@@ -26,7 +26,7 @@ class Stopwatch(tk.Frame):
         self.minutes = 0
         self.seconds = 0
         self.milliseconds = 0
-        self.stopwatch = ""
+        self.stopwatch = self.time_to_string()
         self.active = False
 
         # Create the stopwatch label and the start, stop, and reset buttons
@@ -34,18 +34,28 @@ class Stopwatch(tk.Frame):
                 font = ("verdana", 32, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
         self.start_button = tk.Button(root, text = "Start", 
-                font = ("verdana", 14), command = self.start())
+                font = ("verdana", 14), command = self.start)
         self.stop_button = tk.Button(root, text = "Stop", 
-                font = ("verdana", 14), command = self.stop())
+                font = ("verdana", 14), command = self.stop)
         self.reset_button = tk.Button(root, text = "Reset", 
-                font = ("verdana", 14), command = self.reset())
+                font = ("verdana", 14), command = self.reset)
         
         # Place widgets into frame
         self.stopwatch_label.pack(expand = True, fill ="both")
         self.start_button.pack()
         self.stop_button.pack()
         self.reset_button.pack()
-    
+
+    def time_to_string(self):
+        hours_string = "{:02d}".format(self.hours)
+        minutes_string = "{:02d}".format(self.minutes)
+        seconds_string = "{:02d}".format(self.seconds)
+        milliseconds_string = "{:03d}".format(self.milliseconds)
+
+        time_string = (hours_string + ":" + minutes_string + ":" + 
+                seconds_string + ":" + milliseconds_string)
+        return time_string
+
     def start(self):
         print("start")
 
