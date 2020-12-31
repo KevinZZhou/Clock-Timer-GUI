@@ -85,8 +85,23 @@ class AnalogClock(tk.Frame):
     
     def update_hands(self):
         datetime_object = self.dropdown.get_datetime()
-        
+        self.update_minutes(datetime_object)
         self.update_seconds(datetime_object)
+
+    def update_minutes(self, datetime_object):
+        minutes: int = datetime_object.minute
+        seconds: int = datetime_object.second
+        minutes_length: int = self.center_X // 2
+
+        angle_minutes_deg = ((minutes * 30) + (seconds * 6 / 60) + 90) % 360
+        angle_minutes_rad = angle_minutes_deg * math.pi / 180
+
+        self.canvas.delete(self.hand_minutes)
+        self.hand_minutes = self.canvas.create_line(
+                self.center_X, self.center_Y, 
+                self.center_X + minutes_length * math.cos(angle_minutes_rad), 
+                self.center_X + minutes_length * math.sin(angle_minutes_rad), 
+                width = 5)
 
     def update_seconds(self, datetime_object):
         seconds: int = datetime_object.second
