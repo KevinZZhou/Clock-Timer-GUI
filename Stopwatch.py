@@ -103,13 +103,16 @@ class Stopwatch(tk.Frame):
 
         # Adjusts the stopwatch values if it is active
         if self.active == True:
-            self.milliseconds = (self.milliseconds + 1) % 1000
-            if self.milliseconds == 0:
-                self.seconds = (self.seconds + 1) % 60
-                if self.seconds == 0: 
-                    self.minutes = (self.minutes + 1) % 60
-                    if self.minutes == 0:
-                        self.hours = (self.hours + 1) % 100
+            total_milliseconds = (self.milliseconds + (self.seconds * 1000) + 
+                    (self.minutes * 60 * 1000) + (self.hours * 60 * 60 * 1000))
+            total_milliseconds += 1
+
+            self.hours = total_milliseconds // (60 * 60 * 1000)
+            total_minus_hours = total_milliseconds % (60  * 60 * 1000)
+            self.minutes = total_minus_hours // (60 * 1000)
+            remaining_time = total_minus_hours % (60 * 1000)
+            self.seconds = remaining_time // 1000
+            self.milliseconds = remaining_time % 1000
             
             # Display the correct string output
             self.stopwatch = self.time_to_string()
