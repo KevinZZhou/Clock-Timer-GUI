@@ -85,15 +85,31 @@ class AnalogClock(tk.Frame):
     
     def update_hands(self):
         datetime_object = self.dropdown.get_datetime()
+        self.update_hours(datetime_object)
         self.update_minutes(datetime_object)
         self.update_seconds(datetime_object)
+        
+    def update_hours(self, datetime_object): 
+        hours: int = datetime_object.hour
+        minutes: int = datetime_object.minute
+        hours_length: int = self.center_X
+
+        angle_hours_deg = ((hours * 30) + (minutes * 30 / 60) - 90) % 360
+        angle_hours_rad = angle_hours_deg * math.pi / 180
+
+        self.canvas.delete(self.hand_hours)
+        self.hand_hours = self.canvas.create_line(
+                self.center_X, self.center_Y, 
+                self.center_X + hours_length * math.cos(angle_hours_rad), 
+                self.center_X + hours_length * math.sin(angle_hours_rad), 
+                width = 6, fill = "black")
 
     def update_minutes(self, datetime_object):
         minutes: int = datetime_object.minute
         seconds: int = datetime_object.second
         minutes_length: int = self.center_X // 2
 
-        angle_minutes_deg = ((minutes * 30) + (seconds * 6 / 60) + 90) % 360
+        angle_minutes_deg = ((minutes * 6) + (seconds * 6 / 60) - 90) % 360
         angle_minutes_rad = angle_minutes_deg * math.pi / 180
 
         self.canvas.delete(self.hand_minutes)
@@ -101,13 +117,13 @@ class AnalogClock(tk.Frame):
                 self.center_X, self.center_Y, 
                 self.center_X + minutes_length * math.cos(angle_minutes_rad), 
                 self.center_X + minutes_length * math.sin(angle_minutes_rad), 
-                width = 5)
+                width = 4, fill = "dark gray")
 
     def update_seconds(self, datetime_object):
         seconds: int = datetime_object.second
         seconds_length: int = self.center_X
         
-        angle_seconds_deg = ((seconds * 6) + 90) % 360
+        angle_seconds_deg = ((seconds * 6) - 90) % 360
         angle_seconds_rad = angle_seconds_deg * math.pi / 180
 
         self.canvas.delete(self.hand_seconds)
@@ -115,4 +131,4 @@ class AnalogClock(tk.Frame):
                 self.center_X, self.center_Y, 
                 self.center_X + seconds_length * math.cos(angle_seconds_rad), 
                 self.center_X + seconds_length * math.sin(angle_seconds_rad), 
-                width = 2)
+                width = 2, fill = "gray")
