@@ -27,6 +27,8 @@ class MainApp(tk.Frame):
         self.root = root
 
         # Create the tabs that will hold each mode
+        style = ttk.Style()
+        style.configure('TNotebook.Tab', font = ("verdana", 11))
         self.tabs = ttk.Notebook(self.root)
 
         # Digital clock

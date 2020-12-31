@@ -28,13 +28,13 @@ class TimezoneDropdown(tk.Frame):
 
         # Create the timezone dropdown box label
         self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
-                font = ("verdana", 14))
+                font = ("verdana", 12))
         
         # Create the timezone dropdown box
         timezone_list = list(get_zonefile_instance().zones)
         timezone_list.sort()
         self.timezone_dropdown = ttk.Combobox(root, state = "readonly", 
-                values = timezone_list, font = ("verdana", 14))
+                values = timezone_list, font = ("verdana", 12))
         
         # Set the default value to be the local time zone of the device
         # If something goes wrong (e.g. timezone isn't found), default to EST
