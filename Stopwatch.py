@@ -98,12 +98,20 @@ class Stopwatch(tk.Frame):
         self.seconds = 0
         self.milliseconds = 0
 
-        # Display correct string and stop the stopwatch
+        # Display the correct string output and stop the stopwatch
         self.stopwatch = self.time_to_string()
         self.stopwatch_label.config(text = self.stopwatch)
         self.stop()
     
     def tick(self):
+        """
+        This function increments the number of milliseconds by 1 when the 
+        stopwatch is active.
+        It then adjusts the of number seconds, minutes, and hours if necessary 
+        and sets the new stopwatch output.
+        """
+
+        # Adjusts the stopwatch values if it is active
         if self.active == True:
             self.milliseconds = (self.milliseconds + 1) % 1000
             if self.milliseconds == 0:
@@ -112,6 +120,8 @@ class Stopwatch(tk.Frame):
                     self.minutes = (self.minutes + 1) % 60
                     if self.minutes == 0:
                         self.hours = (self.hours + 1) % 100
+            
+            # Display the correct string output
             self.stopwatch = self.time_to_string()
             self.stopwatch_label.config(text = self.stopwatch)
             self.after(1, self.tick)
