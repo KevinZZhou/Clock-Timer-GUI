@@ -57,13 +57,19 @@ class Stopwatch(tk.Frame):
         return time_string
 
     def start(self):
-        print("start")
+        self.active = True
+        self.tick()
 
     def stop(self):
-        print("stop")
+        self.active = False
 
     def reset(self):
-        print("reset")
+        self.hours = 0
+        self.minutes = 0
+        self.seconds = 0
+        self.milliseconds = 0
+        self.stopwatch = self.time_to_string()
+        self.stop()
     
     def tick(self):
         print("tick")
