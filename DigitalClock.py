@@ -54,11 +54,11 @@ class DigitalClock(tk.Frame):
         # If something goes wrong, default to displaying local time
         try:
             datetime_object = self.dropdown.get_datetime()
-            time: str = datetime_object.strftime("%I:%M:%S %p")
-            date: str = datetime_object.strftime("%A, %B %d, %Y")
+            time = datetime_object.strftime("%I:%M:%S %p")
+            date = datetime_object.strftime("%A, %B %d, %Y")
         except:
-            time: str = strftime("%I:%M:%S %p")
-            date: str = strftime("%A, %B %d, %Y")
+            time = strftime("%I:%M:%S %p")
+            date = strftime("%A, %B %d, %Y")
         
         # Update time and/or date if necessary
         if self.time != time:
