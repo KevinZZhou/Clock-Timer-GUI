@@ -48,10 +48,10 @@ class AnalogClock(tk.Frame):
         self.center_X, self.center_Y = self.width // 2, self.height //2
 
         # Create the date label and timezone dropdown box
-        self.date_label = tk.Label(root, text = self.date, 
+        self.date_label = tk.Label(self.root, text = self.date, 
                 font = ("verdana", 16, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
-        self.dropdown = TimezoneDropdown(root)
+        self.dropdown = TimezoneDropdown(self.root)
 
         # Place widgets into frame
         self.canvas.create_image(self.center_X, self.center_Y, 
