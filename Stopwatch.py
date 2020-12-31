@@ -69,7 +69,18 @@ class Stopwatch(tk.Frame):
         self.seconds = 0
         self.milliseconds = 0
         self.stopwatch = self.time_to_string()
+        self.stopwatch_label.config(text = self.stopwatch)
         self.stop()
     
     def tick(self):
-        print("tick")
+        if self.active == True:
+            self.milliseconds = (self.milliseconds + 1) % 1000
+            if self.milliseconds == 0:
+                self.seconds = (self.seconds + 1) % 60
+                if self.seconds == 0: 
+                    self.minutes = (self.minutes + 1) % 60
+                    if self.minutes == 0:
+                        self.hours = (self.hours + 1) % 100
+            self.stopwatch = self.time_to_string()
+            self.stopwatch_label.config(text = self.stopwatch)
+            self.after(1, self.tick)
