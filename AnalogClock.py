@@ -79,24 +79,40 @@ class AnalogClock(tk.Frame):
         if self.date != date:
             self.date = date
             self.date_label.config(text = self.date)
-        
         self.update_hands()
         self.after(100, self.tick)
     
     def update_hands(self):
+        """
+        This function updates all three clock hands (hour, minute, second).
+        """
+
+        # Get the current time based on the timezone as a datetime object
         datetime_object = self.dropdown.get_datetime()
+
+        # Update clock hands
         self.update_hours(datetime_object)
         self.update_minutes(datetime_object)
         self.update_seconds(datetime_object)
         
     def update_hours(self, datetime_object): 
+        """
+        This function updates the hour hand of the clock.
+
+        Args:
+            datetime_object (datetime): Current time based on the timezone
+        """
+
+        # Values
         hours: int = datetime_object.hour
         minutes: int = datetime_object.minute
         hours_length: int = self.center_X
 
+        # Calculate the angle of the hour hand
         angle_hours_deg = ((hours * 30) + (minutes * 30 / 60) - 90) % 360
         angle_hours_rad = angle_hours_deg * math.pi / 180
 
+        # Position the new clock hand
         self.canvas.delete(self.hand_hours)
         self.hand_hours = self.canvas.create_line(
                 self.center_X, self.center_Y, 
@@ -105,13 +121,23 @@ class AnalogClock(tk.Frame):
                 width = 6, fill = "black")
 
     def update_minutes(self, datetime_object):
+        """
+        This function updates the minute hand of the clock.
+
+        Args:
+            datetime_object (datetime): Current time based on the timezone
+        """
+
+        # Values
         minutes: int = datetime_object.minute
         seconds: int = datetime_object.second
         minutes_length: int = self.center_X // 2
 
+        # Calculate the angle of the minute hand
         angle_minutes_deg = ((minutes * 6) + (seconds * 6 / 60) - 90) % 360
         angle_minutes_rad = angle_minutes_deg * math.pi / 180
 
+        # Position the new clock hand
         self.canvas.delete(self.hand_minutes)
         self.hand_minutes = self.canvas.create_line(
                 self.center_X, self.center_Y, 
@@ -120,12 +146,22 @@ class AnalogClock(tk.Frame):
                 width = 4, fill = "dark gray")
 
     def update_seconds(self, datetime_object):
+        """
+        This function updates the second hand of the clock.
+
+        Args:
+            datetime_object (datetime): Current time based on the timezone
+        """
+
+        # Values
         seconds: int = datetime_object.second
         seconds_length: int = self.center_X
         
+        # Calculate the angle of the second hand
         angle_seconds_deg = ((seconds * 6) - 90) % 360
         angle_seconds_rad = angle_seconds_deg * math.pi / 180
 
+        # Position the new clock hand
         self.canvas.delete(self.hand_seconds)
         self.hand_seconds = self.canvas.create_line(
                 self.center_X, self.center_Y, 
