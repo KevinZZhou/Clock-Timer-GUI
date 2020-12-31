@@ -13,10 +13,11 @@ class Stopwatch(tk.Frame):
 
     def __init__(self, root): 
         """
-        
+        This function creates an instance of Stopwatch.
 
         Args:
-            root ([type]): [description]
+            root: An instance of Tk will be placed here.  
+                  This will place Stopwatch in a window.
         """
 
         # Initialize object
@@ -29,45 +30,75 @@ class Stopwatch(tk.Frame):
         self.stopwatch = self.time_to_string()
         self.active = False
 
+        # Create frames
+        self.frame_start_stop = tk.Frame(root)
+        self.frame_reset = tk.Frame(root)
+
         # Create the stopwatch label and the start, stop, and reset buttons
         self.stopwatch_label = tk.Label(root, text = self.stopwatch, 
                 font = ("verdana", 32, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
-        self.start_button = tk.Button(root, text = "Start", 
+        self.start_button = tk.Button(self.frame_start_stop, text = "Start", 
                 font = ("verdana", 14), command = self.start)
-        self.stop_button = tk.Button(root, text = "Stop", 
+        self.stop_button = tk.Button(self.frame_start_stop, text = "Stop", 
                 font = ("verdana", 14), command = self.stop)
-        self.reset_button = tk.Button(root, text = "Reset", 
+        self.reset_button = tk.Button(self.frame_reset, text = "Reset", 
                 font = ("verdana", 14), command = self.reset)
         
         # Place widgets into frame
         self.stopwatch_label.pack(expand = True, fill ="both")
-        self.start_button.pack()
-        self.stop_button.pack()
-        self.reset_button.pack()
+        self.start_button.pack(side = "left")
+        self.stop_button.pack(side = "left")
+        self.reset_button.pack(side = "bottom")
+        self.frame_start_stop.pack()
+        self.frame_reset.pack()
 
     def time_to_string(self):
+        """
+        This function takes the integer values of the stopwatch and converts 
+        them into a single string that looks like a stopwatch's output.
+
+        Returns:
+            str: A string displaying the current stopwatch output
+        """
+
+        # Convert self.hours, self.minutes, self.seconds, and 
+        # self.milliseconds into strings
         hours_string = "{:02d}".format(self.hours)
         minutes_string = "{:02d}".format(self.minutes)
         seconds_string = "{:02d}".format(self.seconds)
         milliseconds_string = "{:03d}".format(self.milliseconds)
 
+        # Return a string combining the four values
         time_string = (hours_string + ":" + minutes_string + ":" + 
                 seconds_string + ":" + milliseconds_string)
         return time_string
 
     def start(self):
+        """
+        This function starts the stopwatch.
+        """
         self.active = True
         self.tick()
 
     def stop(self):
+        """
+        This function stops the stopwatch.
+        """
         self.active = False
 
     def reset(self):
+        """
+        This function resets the stopwatch.
+        """
+
+        # Set values to 0
         self.hours = 0
         self.minutes = 0
         self.seconds = 0
         self.milliseconds = 0
+
+        # Display correct string and stop the stopwatch
         self.stopwatch = self.time_to_string()
         self.stopwatch_label.config(text = self.stopwatch)
         self.stop()
