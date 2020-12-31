@@ -31,7 +31,6 @@ class Timer(tk.Frame):
         self.seconds = 0
         self.timer = self.time_to_string()
         self.active = False
-        self.file_path = ""
 
         # Create timer label
         self.timer_label = tk.Label(self.root, text = self.timer, 
@@ -135,8 +134,9 @@ class Timer(tk.Frame):
             if self.timer == "00:00:00":
                 playsound("files/sounds/beep.mp3")
                 self.stop()
+            # Otherwise, adjusts the values of the active timer
             else:
-                # Adjusts the timer values if it is active
+                # Adjusts the timer values
                 total_seconds = (self.seconds + 
                         (self.minutes * 60) + (self.hours * 24 * 60))
                 total_seconds -= 1
@@ -145,7 +145,7 @@ class Timer(tk.Frame):
                 self.minutes = remaining_time // 60
                 self.seconds = remaining_time % 60
 
-                # Display the correct string output                
+                # Displays the correct string output                
                 self.timer = self.time_to_string()
                 self.timer_label.config(text = self.timer)
                 self.after(1000, self.tick)
