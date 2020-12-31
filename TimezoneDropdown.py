@@ -26,15 +26,15 @@ class TimezoneDropdown(tk.Frame):
         # Initialize object
         tk.Frame.__init__(self, root)
 
-        # Create the timezone dropdown box label
-        self.dropdown_label = tk.Label(root, text = "Select a timezone:", 
-                font = ("verdana", 12))
-        
-        # Create the timezone dropdown box
+        # Create the timezone dropdown box and its label in a frame
+        self.dropdown_frame = tk.Frame(root)
+        self.dropdown_label = tk.Label(self.dropdown_frame, 
+                text = "Select a timezone:", font = ("verdana", 12))
         timezone_list = list(get_zonefile_instance().zones)
         timezone_list.sort()
-        self.timezone_dropdown = ttk.Combobox(root, state = "readonly", 
-                values = timezone_list, font = ("verdana", 12))
+        self.timezone_dropdown = ttk.Combobox(self.dropdown_frame, 
+                state = "readonly", values = timezone_list, 
+                font = ("verdana", 12))
         
         # Set the default value to be the local time zone of the device
         # If something goes wrong (e.g. timezone isn't found), default to EST
@@ -45,8 +45,9 @@ class TimezoneDropdown(tk.Frame):
             self.timezone_dropdown.set("EST")
         
         # Place widgets into frame
-        self.timezone_dropdown.pack(side = "bottom")
-        self.dropdown_label.pack(side = "bottom")
+        self.dropdown_label.pack(side = "left")
+        self.timezone_dropdown.pack(side = "left")
+        self.dropdown_frame.pack(side = "bottom")
     
     def get_datetime(self) -> datetime:
         """
