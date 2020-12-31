@@ -4,6 +4,7 @@ from tkinter import ttk
 from DigitalClock import DigitalClock
 from AnalogClock import AnalogClock
 from Stopwatch import Stopwatch
+from Timer import Timer
 
 class MainApp(tk.Frame): 
     """
@@ -53,7 +54,8 @@ class MainApp(tk.Frame):
         # Timer
         tab_timer = ttk.Frame(self.tabs)
         self.tabs.add(tab_timer, text = "Timer")
-        # TODO: Create an instance of Timer
+        timer = Timer(tab_timer)
+        timer.pack()
 
         # Pomodoro timer?
         tab_pomodoro_timer = ttk.Frame(self.tabs)
