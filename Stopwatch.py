@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from TimeButtons import TimeButtons
+
 class Stopwatch(tk.Frame): 
     """
     This class is the stopwatch that will appear in MainApp.
@@ -30,28 +32,16 @@ class Stopwatch(tk.Frame):
         self.stopwatch = self.time_to_string()
         self.active = False
 
-        # Create frames
-        self.frame_start_stop = tk.Frame(root)
-        self.frame_reset = tk.Frame(root)
-
         # Create the stopwatch label and the start, stop, and reset buttons
-        self.stopwatch_label = tk.Label(root, text = self.stopwatch, 
+        self.stopwatch_label = tk.Label(self.root, text = self.stopwatch, 
                 font = ("verdana", 32, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
-        self.start_button = tk.Button(self.frame_start_stop, text = "Start", 
-                font = ("verdana", 14), command = self.start)
-        self.stop_button = tk.Button(self.frame_start_stop, text = "Stop", 
-                font = ("verdana", 14), command = self.stop)
-        self.reset_button = tk.Button(self.frame_reset, text = "Reset", 
-                font = ("verdana", 14), command = self.reset)
+        self.buttons = TimeButtons(self.root, 
+                self.start, self.stop, self.reset)
         
         # Place widgets into frame
         self.stopwatch_label.pack(expand = True, fill ="both")
-        self.start_button.pack(side = "left")
-        self.stop_button.pack(side = "left")
-        self.reset_button.pack(side = "bottom")
-        self.frame_start_stop.pack()
-        self.frame_reset.pack()
+        self.buttons.pack()
 
     def time_to_string(self):
         """
