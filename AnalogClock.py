@@ -71,9 +71,9 @@ class AnalogClock(tk.Frame):
         # Use the timezone dropdown box to adjust the displayed date
         try:
             datetime_object = self.dropdown.get_datetime()
-            date: str = datetime_object.strftime("%A, %B %d, %Y")
+            date = datetime_object.strftime("%A, %B %d, %Y")
         except:
-            date: str = strftime("%A, %B %d, %Y")
+            date = strftime("%A, %B %d, %Y")
         
         # Update date if necessary
         if self.date != date:
@@ -104,9 +104,9 @@ class AnalogClock(tk.Frame):
         """
 
         # Values
-        hours: int = datetime_object.hour
-        minutes: int = datetime_object.minute
-        hours_length: int = self.center_X
+        hours = datetime_object.hour
+        minutes = datetime_object.minute
+        hours_length = self.center_X // 2
 
         # Calculate the angle of the hour hand
         angle_hours_deg = ((hours * 30) + (minutes * 30 / 60) - 90) % 360
@@ -118,7 +118,7 @@ class AnalogClock(tk.Frame):
                 self.center_X, self.center_Y, 
                 self.center_X + hours_length * math.cos(angle_hours_rad), 
                 self.center_X + hours_length * math.sin(angle_hours_rad), 
-                width = 6, fill = "black")
+                width = 8, fill = "blue")
 
     def update_minutes(self, datetime_object):
         """
@@ -129,9 +129,9 @@ class AnalogClock(tk.Frame):
         """
 
         # Values
-        minutes: int = datetime_object.minute
-        seconds: int = datetime_object.second
-        minutes_length: int = self.center_X // 2
+        minutes = datetime_object.minute
+        seconds = datetime_object.second
+        minutes_length = self.center_X
 
         # Calculate the angle of the minute hand
         angle_minutes_deg = ((minutes * 6) + (seconds * 6 / 60) - 90) % 360
@@ -143,7 +143,7 @@ class AnalogClock(tk.Frame):
                 self.center_X, self.center_Y, 
                 self.center_X + minutes_length * math.cos(angle_minutes_rad), 
                 self.center_X + minutes_length * math.sin(angle_minutes_rad), 
-                width = 4, fill = "dark gray")
+                width = 10, fill = "red")
 
     def update_seconds(self, datetime_object):
         """
@@ -154,8 +154,8 @@ class AnalogClock(tk.Frame):
         """
 
         # Values
-        seconds: int = datetime_object.second
-        seconds_length: int = self.center_X
+        seconds = datetime_object.second
+        seconds_length = self.center_X
         
         # Calculate the angle of the second hand
         angle_seconds_deg = ((seconds * 6) - 90) % 360
@@ -167,4 +167,4 @@ class AnalogClock(tk.Frame):
                 self.center_X, self.center_Y, 
                 self.center_X + seconds_length * math.cos(angle_seconds_rad), 
                 self.center_X + seconds_length * math.sin(angle_seconds_rad), 
-                width = 2, fill = "gray")
+                width = 3, fill = "green")
