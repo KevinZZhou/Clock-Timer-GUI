@@ -54,7 +54,7 @@ class Timer(tk.Frame):
                 self.start, self.stop, self.reset)
 
         # Place widgets into frame
-        self.timer_label.pack(expand = True, fill ="both")
+        self.timer_label.pack(expand = True, fill = "both")
         self.hours_input.pack()
         self.minutes_input.pack()
         self.seconds_input.pack()
@@ -72,6 +72,7 @@ class Timer(tk.Frame):
         self.seconds = self.seconds_input.get_value()
         self.timer = self.time_to_string()
         self.timer_label.config(text = self.timer)
+        self.stop()
 
     def time_to_string(self):
         """
@@ -138,10 +139,10 @@ class Timer(tk.Frame):
             else:
                 # Adjusts the timer values
                 total_seconds = (self.seconds + 
-                        (self.minutes * 60) + (self.hours * 24 * 60))
+                        (self.minutes * 60) + (self.hours * 60 * 60))
                 total_seconds -= 1
-                self.hours = total_seconds // (24 * 60)
-                remaining_time = total_seconds % (24 * 60)
+                self.hours = total_seconds // (60 * 60)
+                remaining_time = total_seconds % (60 * 60)
                 self.minutes = remaining_time // 60
                 self.seconds = remaining_time % 60
 
