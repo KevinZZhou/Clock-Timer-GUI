@@ -5,6 +5,7 @@ from DigitalClock import DigitalClock
 from AnalogClock import AnalogClock
 from Stopwatch import Stopwatch
 from Timer import Timer
+from PomodoroTimer import PomodoroTimer
 
 class MainApp(tk.Frame): 
     """
@@ -57,10 +58,11 @@ class MainApp(tk.Frame):
         timer = Timer(tab_timer)
         timer.pack()
 
-        # Pomodoro timer?
+        # Pomodoro timer
         tab_pomodoro_timer = ttk.Frame(self.tabs)
         self.tabs.add(tab_pomodoro_timer, text = "Pomodoro Timer")
-        # TODO: Create an instance of PomodoroTimer
+        pomodoro_timer = PomodoroTimer(tab_pomodoro_timer)
+        pomodoro_timer.pack()
         
         self.tabs.pack(expand = True, fill = "both", side = "top")
 
