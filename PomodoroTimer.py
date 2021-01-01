@@ -10,7 +10,7 @@ class PomodoroTimer(tk.Frame):
     counting down at preset intervals: 
         25 minute study period
         5 minute short break after each study period
-        Additional 15 minute long break after every 5th study period
+        15 minute long break after every 5th study period
 
     Args:
         tk.Frame: Parent class
@@ -35,17 +35,19 @@ class PomodoroTimer(tk.Frame):
         self.pomodoro_number = 0
         self.status = "Studying!"
 
-        # Create timer, status, and pomodoro label
+        # Create timer, status, and pomodoro labels and time buttons
         self.timer_label = tk.Label(self.root, text = self.timer, 
                 font = ("verdana", 32, "bold"), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
         self.status_label = tk.Label(self.root, text = self.status, 
-                font = ("verdana", 20), background = "white", 
+                font = ("verdana", 16), background = "white", 
                 foreground = "black", borderwidth = 1, relief = "solid")
         self.pomodoro_label = tk.Label(self.root, text = "Number of " + 
                 "pomodoros: " + str(self.pomodoro_number) + "/4", font = 
-                ("verdana", 20), background = "white", foreground = "black", 
+                ("verdana", 16), background = "white", foreground = "black", 
                 borderwidth = 1, relief = "solid")
+        self.time_buttons = TimeButtons(self.root, 
+                self.start, self.stop, self.reset)
         
         # Place widgets into frame
         self.timer_label.pack(expand = True, fill = "both")
@@ -69,3 +71,71 @@ class PomodoroTimer(tk.Frame):
         time_string = minutes_string + ":" + seconds_string
         return time_string
 
+    def set_timer(self, minutes, seconds):
+        """
+        This function sets the pomodoro timer for its various modes.
+
+        Args:
+            minutes (int): Sets the number of minutes
+            seconds (int): Sets the number of seconds
+        """
+        self.minutes = minutes
+        self.seconds = seconds
+        self.timer = self.time_to_string()
+        self.timer_label.config(text = self.timer)
+    
+    def start(self):
+        """
+        This function starts the pomodoro timer.
+        """
+        self.active = True
+        self.after(1000, self.tick)
+
+    def stop(self):
+        """
+        This function stops the pomodoro timer.
+        """
+        self.active = False
+
+    def reset(self):
+        """
+        This function resets the timer.
+        """
+        self.set_timer(25, 0)
+        self.stop()
+    
+    def tick(self):
+        """
+        This function decrements the number of seconds by 1 when the timer is 
+        active, adjusting the number of minutes if needed.  It uses 
+        self.pomodoro_number to determine the length of the next timer.
+        """
+
+        # Adjusts the timer values if it is active
+        if self.active == True:
+            # Switches the pomodoro timer mode if necessary
+            if self.timer == "00:00":
+                playsound("files/sounds/beep.mp3")
+                if self.status == "Studying!":
+                    self.pomodoro_number += 1
+                    if self.pomodoro_number == 5:
+                        self.pomodoro_number = 0
+                        self.status = "Taking a longer break!"
+                        self.set_timer(15, 0)
+                    elif self.pomodoro_number < 5:
+                        self.status = "Taking a short break!"
+                        self.set_timer(5, 0)
+                    self.pomodoro_label.config(text = "Number of " + 
+                            "pomodoros: " + str(self.pomodoro_number) + "/4")
+                else:
+                    self.status = "Studying!"
+                    self.set_timer(25, 0)
+                self.status_label.config(text = self.status)
+                        
+            # Otherwise, adjusts the values of the active timer
+            else:
+                # Adjusts the timer values
+                total_seconds = (self.seconds + (self.minutes * 60))
+                total_seconds -= 1
+                self.set_timer(total_seconds // 60, total_seconds % 60)
+            self.after(1000, self.tick)
