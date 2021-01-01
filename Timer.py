@@ -126,7 +126,7 @@ class Timer(tk.Frame):
         """
         This function decrements the number of seconds by 1 when the timer is 
         active.  It then adjusts the number of minutes and hours if necessary 
-        and sets the new stopwatch output.
+        and sets the new timer output.
         """
 
         # Adjusts the timer values if it is active
